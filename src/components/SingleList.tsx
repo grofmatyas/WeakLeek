@@ -13,7 +13,6 @@ const randomList = [
 const SingleList: FC = () => {
   const [open, setOpen] = useState(false);
 
-  console.log(open);
   return (
     <>
       <IonAlert
@@ -21,11 +20,21 @@ const SingleList: FC = () => {
         header="Alert"
         subHeader="Important message"
         message="This is an alert!"
-        buttons={["OK"]}
-        onDidDismiss={() => setOpen(false)}
+        buttons={[
+          {
+            text: "Confirm",
+            role: "confirm",
+            handler: () => {
+              console.log("Alert confirmed");
+            },
+          },
+        ]}
+        onDidDismiss={() => {
+          setOpen(false);
+        }}
       ></IonAlert>
 
-      <IonList>
+      <IonList inset={true}>
         {randomList.map((item) => {
           return (
             <Item
