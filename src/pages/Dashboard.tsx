@@ -23,17 +23,72 @@ const Tab1: React.FC = () => {
             values: [
               {
                 date: new Date(2023, 4, 20),
+                amount: 2,
+              },
+              {
+                date: new Date(2022, 9, 18),
+                amount: 1,
+              },
+              {
+                date: new Date(2023, 4, 25),
                 amount: 4,
-              }
+              },
+              {
+                date: new Date(2023, 5, 1),
+                amount: 3,
+              },
+              {
+                date: new Date(2023, 5, 2),
+                amount: 7,
+              },
+              {
+                date: new Date(2023, 1, 22),
+                amount: 3,
+              },
+              {
+                date: new Date(2023, 4, 22),
+                amount: 2,
+              },
             ],
           },
           {
             name: 'Beef',
             category: 'Meat',
-            values: [{
+            values: [
+              {
               date: new Date(),
               amount: 1,
-            }],
+              },
+              {
+                date: new Date(2022, 11, 25),
+                amount: 2,
+              },
+              {
+                date: new Date(2023, 4, 18),
+                amount: 5,
+              },
+              {
+                date: new Date(2023, 3, 28),
+                amount: 3,
+              },
+              {
+                date: new Date(2023, 1, 2),
+                amount: 6,
+              },
+              {
+                date: new Date(2022, 8, 11),
+                amount: 1,
+              },
+              {
+                date: new Date(2023, 2, 2),
+                amount: 1,
+              },
+              {
+                date: new Date(2022, 10, 9),
+                amount: 2,
+              },
+
+          ],
           },
         ],
       })
