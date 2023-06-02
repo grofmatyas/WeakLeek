@@ -1,4 +1,6 @@
-export type Categories = 'vegetable' | 'fruit' | 'meat' | 'alcohol';
+export type Categories = 'Vegetable' | 'Fruit' | 'Meat' | 'Alcohol';
+
+export type TimeScale = 'Day' | 'Week' | 'Month' | 'Year';
 
 export interface GarbageHistory {
   garbage: {
