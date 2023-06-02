@@ -1,5 +1,10 @@
 import { FC, useRef, useState } from "react";
-import { BillHistory, Categories } from "../data/types";
+import {
+  BillHistory,
+  Categories,
+  Garbage,
+  GarbageHistory,
+} from "../data/types";
 import {
   IonAlert,
   IonButton,
@@ -22,6 +27,7 @@ import {
 } from "@ionic/react";
 import SingleList from "./SingleList";
 import { OverlayEventDetail } from "@ionic/react/dist/types/components/react-component-lib/interfaces";
+import { getObject, setObject } from "../data/store";
 
 const ModalGarbage: FC<{
   onDismiss: (data?: any, role?: string) => void;
@@ -100,11 +106,13 @@ const ModalGarbage: FC<{
                 {
                   name: nameRef.current?.value,
                   category: selectRef.current?.value,
-                  value: {
-                    date: dateRef.current?.value,
-                    amount: amountRef.current?.value,
-                  },
-                },
+                  values: [
+                    {
+                      date: dateRef.current?.value,
+                      amount: amountRef.current?.value,
+                    },
+                  ],
+                } as Garbage,
                 "confirm"
               )
             }
@@ -118,27 +126,60 @@ const ModalGarbage: FC<{
   );
 };
 
+const onModalDismiss = async (role?: string, inputData?: Garbage) => {
+  if (role === "confirm" && inputData) {
+    // setMessage(`${ev.detail?.data?.value?.amount} hii`);
+
+    try {
+      let garbage = await getObject<GarbageHistory>("garbage");
+
+      console.log("garbage na zacatku", garbage);
+
+      const thisGarbage = garbage?.garbage?.find(
+        (item) =>
+          item.name === inputData?.name && item.category === inputData?.category
+      );
+
+      console.log("this garbage", thisGarbage);
+      if (thisGarbage) {
+        thisGarbage.values.push(inputData.values);
+      } else {
+        if (!garbage?.garbage) {
+          garbage = { garbage: [] };
+          console.log("garbage now set to empty array", garbage);
+        }
+
+        garbage?.garbage.push(inputData);
+      }
+
+      console.log("tenhle garbage posilam", garbage);
+      await setObject("garbage", garbage!);
+    } catch (e) {
+      return null;
+    }
+  }
+};
+
 const ListOfLists: FC<BillHistory> = ({ bills }) => {
   const [open, setOpen] = useState(false);
 
   const [present, dismiss] = useIonModal(ModalGarbage, {
-    onDismiss: (data: any, role: string) => dismiss(data, role),
+    onDismiss: (data: Garbage, role: string) => dismiss(data, role),
     nameItem: "itemName",
     category: "apples",
     date: new Date(),
   });
+
   const [message, setMessage] = useState(
     "This modal example uses the modalController to present and dismiss modals."
   );
 
   console.log(message);
 
-  const openModal = () => {
+  const openModal = async () => {
     present({
-      onWillDismiss: (ev: CustomEvent<OverlayEventDetail>) => {
-        if (ev.detail.role === "confirm") {
-          setMessage(`${ev.detail?.data?.value?.amount} hii`);
-        }
+      onWillDismiss: async (ev: CustomEvent<OverlayEventDetail>) => {
+        onModalDismiss(ev.detail.role, ev.detail?.data);
       },
     });
   };
