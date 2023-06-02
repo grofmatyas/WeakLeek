@@ -1,16 +1,9 @@
 import { FC, useState } from "react";
 import { IonAlert, IonButton, IonList } from "@ionic/react";
 import Item from "./Item";
+import { Bill } from "../data/types";
 
-const randomList = [
-  { itemName: "apples", category: "fruit" },
-  {
-    itemName: "leek",
-    category: "vegetable",
-  },
-];
-
-const SingleList: FC = () => {
+const SingleList: FC<Bill> = ({ date, values }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -35,12 +28,12 @@ const SingleList: FC = () => {
       ></IonAlert>
 
       <IonList inset={true}>
-        {randomList.map((item) => {
+        {values.map((item) => {
           return (
             <Item
-              name={item.itemName}
+              name={item.name}
               category={item.category}
-              key={`${item.itemName}_${item.category}`}
+              key={`${item.name}_${item.category}`}
               setAlert={setOpen}
             />
           );

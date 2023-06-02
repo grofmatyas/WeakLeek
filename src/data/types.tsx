@@ -1,6 +1,6 @@
-export type Categories = 'Vegetable' | 'Fruit' | 'Meat' | 'Alcohol';
+export type Categories = "Vegetable" | "Fruit" | "Meat" | "Alcohol";
 
-export type TimeScale = 'Day' | 'Week' | 'Month' | 'Year';
+export type TimeScale = "Day" | "Week" | "Month" | "Year";
 
 export interface GarbageHistory {
   garbage: {
@@ -10,16 +10,18 @@ export interface GarbageHistory {
       date: Date;
       amount: number;
     }[];
-  }[]
-};
+  }[];
+}
 
 export interface BillHistory {
-  bills: {
-    date: Date;
-    values: {
-      name: string;
-      category: Categories;
-      amount?: number; 
-    }[];
+  bills: Bill[];
+}
+
+export interface Bill {
+  date: Date;
+  values: {
+    name: string;
+    category: Categories;
+    amount?: number;
   }[];
 }
