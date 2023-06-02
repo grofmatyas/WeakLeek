@@ -1,5 +1,4 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
 import './Dashboard.css';
 import LineChart from '../components/LineChart';
 import PieChart from '../components/PieChart';
@@ -25,7 +24,7 @@ const Tab1: React.FC = () => {
         <div>
           <h3 style={headingStyles}>Timelapse of thrown items</h3>
           <LineChart data={{
-            labels: ['Monday', 'Tuesday', 'Wednesday', 'Yesterday', 'Today'],
+            labels: ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Today'],
             datasets: [{
               label: 'vegetable',
               data: [0,5,0,0,0,5,4,0,0],
