@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IonList } from "@ionic/react";
+import { IonAlert, IonButton, IonList } from "@ionic/react";
 import Item from "./Item";
 
 const randomList = [
@@ -12,17 +12,29 @@ const randomList = [
 
 const SingleList: FC = () => {
   return (
-    <IonList>
-      {randomList.map((item) => {
-        return (
-          <Item
-            name={item.itemName}
-            category={item.category}
-            key={`${item.itemName}_${item.category}`}
-          ></Item>
-        );
-      })}
-    </IonList>
+    <>
+      <IonButton id={"id"} />
+
+      <IonAlert
+        trigger="id"
+        header="Alert"
+        subHeader="Important message"
+        message="This is an alert!"
+        buttons={["OK"]}
+      />
+
+      <IonList>
+        {randomList.map((item) => {
+          return (
+            <Item
+              name={item.itemName}
+              category={item.category}
+              key={`${item.itemName}_${item.category}`}
+            />
+          );
+        })}
+      </IonList>
+    </>
   );
 };
 
