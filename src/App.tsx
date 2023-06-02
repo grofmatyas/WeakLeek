@@ -10,7 +10,8 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { camera, list, nutrition } from 'ionicons/icons';
+import { camera, list } from 'ionicons/icons';
+import barChart from './bar-chart.svg';
 import Dashboard from './pages/Dashboard';
 import ItemList from './pages/ItemList';
 import ScanBill from './pages/ScanBill';
@@ -62,7 +63,7 @@ const App: React.FC = () => (
             <IonIcon aria-hidden="true" icon={list} />
           </IonTabButton>
           <IonTabButton tab="dashboard" href="/dashboard">
-            <IonIcon aria-hidden="true" icon={nutrition} />
+            <IonIcon aria-hidden="true" icon={barChart} />
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
