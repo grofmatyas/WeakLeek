@@ -142,7 +142,7 @@ const onModalDismiss = async (role?: string, inputData?: Garbage) => {
 
       console.log("this garbage", thisGarbage);
       if (thisGarbage) {
-        thisGarbage.values.push(inputData.values);
+        thisGarbage.values.push(inputData.values[0]);
       } else {
         if (!garbage?.garbage) {
           garbage = { garbage: [] };
