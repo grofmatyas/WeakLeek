@@ -40,7 +40,6 @@ const Tab1: React.FC = () => {
           <PieChart data={{
             labels: ['vegetable', 'meat'],
             values: [14,2],
-            colors: ['red', 'blue'],
           }} />
         </div>
       </IonContent>

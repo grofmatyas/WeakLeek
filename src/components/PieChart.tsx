@@ -5,7 +5,7 @@ interface PieChartProps {
   data: {
     labels: string[];
     values: number[];
-    colors: string[];
+    colors?: string[];
   };
 }
 
