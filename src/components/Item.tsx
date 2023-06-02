@@ -1,17 +1,17 @@
 import { IonAlert, IonButton, IonIcon, IonItem, IonLabel } from "@ionic/react";
 import { FC } from "react";
 // import { sad, trash } from "ionicons/icons";
-import dontEat from '../dontEat.svg';
+import dontEat from "../dontEat.svg";
 
-const Item: FC<{ name: string; category: string; setAlert: any }> = ({
+const Item: FC<{ name: string; category: string; openModal: () => void }> = ({
   name,
   category,
-  setAlert,
+  openModal,
 }) => {
   return (
     <IonItem>
       <IonLabel>{name}</IonLabel>
-      <IonButton slot="end" onClick={() => setAlert(true)}>
+      <IonButton slot="end" onClick={() => openModal()}>
         <IonIcon slot="icon-only" icon={dontEat} />
       </IonButton>
     </IonItem>

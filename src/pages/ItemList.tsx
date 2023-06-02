@@ -8,7 +8,7 @@ import {
 import ExploreContainer from "../components/ExploreContainer";
 import "./ItemList.css";
 import SingleList from "../components/SingleList";
-import ListOfLists from "../components/ListOfLists";
+import { ListOfLists } from "../components/ListOfLists";
 import { BillHistory } from "../data/types";
 
 const billHistory: BillHistory = {
