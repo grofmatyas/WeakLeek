@@ -5,6 +5,8 @@ import {
   IonButton,
   IonButtons,
   IonContent,
+  IonDatetime,
+  IonDatetimeButton,
   IonHeader,
   IonInput,
   IonItem,
@@ -22,18 +24,23 @@ import SingleList from "./SingleList";
 import { OverlayEventDetail } from "@ionic/react/dist/types/components/react-component-lib/interfaces";
 
 const ModalGarbage: FC<{
-  onDismiss: (data?: string | null | undefined | number, role?: string) => void;
-  nameItem: string;
-  category: Categories;
-}> = ({ onDismiss, nameItem, category }) => {
-  const inputRef = useRef<HTMLIonInputElement>(null);
+  onDismiss: (data?: any, role?: string) => void;
+  nameItem?: string;
+  category?: Categories;
+  date?: Date;
+}> = ({ onDismiss, nameItem, category, date }) => {
+  const nameRef = useRef<HTMLIonInputElement>(null);
+  const selectRef = useRef<HTMLIonInputElement>(null);
+  const amountRef = useRef<HTMLIonInputElement>(null);
+  const dateRef = useRef<HTMLIonInputElement>(null);
 
+  console.log(date, "my date", amountRef);
   return (
     <IonPage>
       <IonContent className="ion-padding">
         <IonItem>
           <IonInput
-            ref={inputRef}
+            ref={nameRef}
             labelPlacement="stacked"
             label="Name"
             placeholder="Your name"
@@ -47,6 +54,7 @@ const ModalGarbage: FC<{
             interface="popover"
             placeholder="Select fruit"
             value={category}
+            ref={selectRef}
           >
             <IonSelectOption value="apples">Apples</IonSelectOption>
             <IonSelectOption value="oranges">Oranges</IonSelectOption>
@@ -56,13 +64,25 @@ const ModalGarbage: FC<{
 
         <IonItem>
           <IonInput
-            ref={inputRef}
+            ref={amountRef}
             labelPlacement="stacked"
-            label="Count"
+            label="Amount"
             placeholder="1"
             value={1}
             type="number"
           />
+        </IonItem>
+
+        <IonItem>
+          <IonDatetimeButton datetime="date"></IonDatetimeButton>
+
+          <IonModal keepContentsMounted={true}>
+            <IonDatetime
+              id="date"
+              value={date?.toISOString()}
+              ref={dateRef}
+            ></IonDatetime>
+          </IonModal>
         </IonItem>
       </IonContent>
       <IonToolbar>
@@ -74,7 +94,20 @@ const ModalGarbage: FC<{
 
         <IonButtons slot="end">
           <IonButton
-            onClick={() => onDismiss(inputRef.current?.value, "confirm")}
+            onClick={() =>
+              onDismiss(
+                // `${amountRef.current?.value}`,
+                {
+                  name: nameRef.current?.value,
+                  category: selectRef.current?.value,
+                  value: {
+                    date: dateRef.current?.value,
+                    amount: amountRef.current?.value,
+                  },
+                },
+                "confirm"
+              )
+            }
             strong={true}
           >
             Confirm
@@ -89,9 +122,10 @@ const ListOfLists: FC<BillHistory> = ({ bills }) => {
   const [open, setOpen] = useState(false);
 
   const [present, dismiss] = useIonModal(ModalGarbage, {
-    onDismiss: (data: string, role: string) => dismiss(data, role),
+    onDismiss: (data: any, role: string) => dismiss(data, role),
     nameItem: "itemName",
     category: "apples",
+    date: new Date(),
   });
   const [message, setMessage] = useState(
     "This modal example uses the modalController to present and dismiss modals."
@@ -103,7 +137,7 @@ const ListOfLists: FC<BillHistory> = ({ bills }) => {
     present({
       onWillDismiss: (ev: CustomEvent<OverlayEventDetail>) => {
         if (ev.detail.role === "confirm") {
-          setMessage(`Hello, ${ev.detail.data}!`);
+          setMessage(`${ev.detail?.data?.value?.amount} hii`);
         }
       },
     });
