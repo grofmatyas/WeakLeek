@@ -43,15 +43,7 @@ const App: React.FC = () => {
   useEffect(() => {
 
 		const setupStore = async () => {
-
 			await createStore("default");
-			// const exists = await get("msgs");
-
-			// if (!exists) {
-				
-			// 	const msgs = getMessages();
-			// 	set("msgs", msgs);
-			// }
 		}
 
 		setupStore();

@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonLabel, IonPage, IonTabBar, IonTabButton, IonTitle, IonToolbar, useIonViewWillEnter } from '@ionic/react';
+import { IonContent, IonHeader, IonLabel, IonPage, IonTabBar, IonButton, IonTitle, IonToolbar, useIonViewWillEnter } from '@ionic/react';
 import './Dashboard.css';
 import LineChart from '../components/LineChart';
 import PieChart from '../components/PieChart';
@@ -7,7 +7,6 @@ import { GarbageHistory, TimeScale } from '../data/types';
 import { useState } from 'react';
 
 const Tab1: React.FC = () => {
-
   const [garbageHistory, setGarbageHistory] = useState<GarbageHistory>({ garbage: [] });
   const [scale, setScale] = useState<TimeScale>('Week');
 
@@ -23,7 +22,7 @@ const Tab1: React.FC = () => {
             category: 'Vegetable',
             values: [
               {
-                date: new Date(),
+                date: new Date(2023, 4, 20),
                 amount: 4,
               }
             ],
@@ -48,35 +47,29 @@ const Tab1: React.FC = () => {
             <IonTitle style={{ textAlign: 'center', marginTop: '2px' }} size="large">Dashboard</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonTabBar slot="bottom">
-          <IonTabButton onClick={() => setScale('Day')}>
-            <IonLabel>Day</IonLabel>
-          </IonTabButton>
-          <IonTabButton onClick={() => setScale('Week')}>
-            <IonLabel>Week</IonLabel>
-          </IonTabButton>
-          <IonTabButton onClick={() => setScale('Month')}>
-            <IonLabel>Month</IonLabel>
-          </IonTabButton>
-          <IonTabButton onClick={() => setScale('Year') }>
-            <IonLabel>Year</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
       <IonContent fullscreen>
+      <div style={{ display: 'flex', justifyContent: 'center', width: '90%', margin: '0 auto', marginTop: '2px' }}>
+  <IonButton onClick={() => setScale('Day')} style={{ flex: 1 }}>
+    <IonLabel>Day</IonLabel>
+  </IonButton>
+  <IonButton onClick={() => setScale('Week')} style={{ flex: 1 }}>
+    <IonLabel>Week</IonLabel>
+  </IonButton>
+  <IonButton onClick={() => setScale('Month')} style={{ flex: 1 }}>
+    <IonLabel>Month</IonLabel>
+  </IonButton>
+  <IonButton onClick={() => setScale('Year')} style={{ flex: 1 }}>
+    <IonLabel>Year</IonLabel>
+  </IonButton>
+</div>
         <div style={{ maxWidth: '100%', overflowX: 'auto' }}>
           <h3 style={{ textAlign: 'center' }}>Timelapse of thrown items</h3>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
           <div style={{ width: '80%' }}>
           <LineChart data={{
-            labels: ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Today'],
-            datasets: [{
-              label: 'Vegetable',
-              data: [0,5,0,0,0,5,4,0,0],
-            }, {
-              label: 'Meat',
-              data: [0,0,0,1,0,0,1,0],
-            }],
-          }} />
+              data: garbageHistory,
+              scale,
+            }} />
           </div>
         </div>
         </div>
