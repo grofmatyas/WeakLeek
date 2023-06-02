@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { IonItem, IonLabel, IonList } from "@ionic/react";
+import { IonList } from "@ionic/react";
+import Item from "./Item";
 
 const randomList = [
   { itemName: "apples", category: "fruit" },
@@ -14,12 +15,15 @@ const SingleList: FC = () => {
     <IonList>
       {randomList.map((item) => {
         return (
-          <IonItem>
-            <IonLabel>{item.itemName}</IonLabel>
-          </IonItem>
+          <Item
+            name={item.itemName}
+            category={item.category}
+            key={`${item.itemName}_${item.category}`}
+          ></Item>
         );
       })}
     </IonList>
   );
 };
+
 export default SingleList;
