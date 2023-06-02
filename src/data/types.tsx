@@ -13,6 +13,7 @@ export interface GarbageHistory {
   }[];
 }
 
+export type Garbage = GarbageHistory["garbage"][0];
 export interface BillHistory {
   bills: Bill[];
 }
