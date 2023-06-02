@@ -7,7 +7,7 @@ export interface GarbageHistory {
     name: string;
     category: Categories;
     values: {
-      date: Date;
+      date: Date | string;
       amount: number;
     }[];
   }[];
@@ -18,7 +18,7 @@ export interface BillHistory {
 }
 
 export interface Bill {
-  date: Date;
+  date: Date | string;
   values: {
     name: string;
     category: Categories;

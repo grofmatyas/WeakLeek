@@ -58,14 +58,14 @@ const LineChart: React.FC<LineChartProps> = ({ data }) => {
     data.data.garbage.forEach(garbage => {
         const existingGarbage = dataGroupedByCategory.garbage.find(item => item.category === garbage.category);
         if (existingGarbage) {
-            existingGarbage.values = existingGarbage.values.concat(garbage.values.filter(item => item.date.getTime() >= timestampThreshold));
+            existingGarbage.values = existingGarbage.values.concat(garbage.values.filter(item => new Date(item.date).getTime() >= timestampThreshold));
             return;
         }
 
         dataGroupedByCategory.garbage.push({
             name: garbage.name,
             category: garbage.category,
-            values: garbage.values.filter(item => item.date.getTime() >= timestampThreshold),
+            values: garbage.values.filter(item => new Date(item.date).getTime() >= timestampThreshold),
         });
     });
   
@@ -79,7 +79,7 @@ const LineChart: React.FC<LineChartProps> = ({ data }) => {
                 return {
                     label: item.category,
                     data: item.values.reduce((total, current) => {
-                        let index = + current.date[orientationDateMethodName]() - now[orientationDateMethodName]() - 1;
+                        let index = + new Date(current.date)[orientationDateMethodName]() - now[orientationDateMethodName]() - 1;
                         if (index < 0) {
                             index += max;
                         }

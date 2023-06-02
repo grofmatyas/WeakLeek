@@ -9,7 +9,7 @@ const SingleList: FC<{
 }> = ({ bill, setOpen }) => {
   return (
     <>
-      <h3>{bill.date.toLocaleDateString()}</h3>
+      <h3>{new Date(bill.date).toLocaleDateString()}</h3>
       <IonList inset={true}>
         {bill?.values?.map((item) => {
           return (

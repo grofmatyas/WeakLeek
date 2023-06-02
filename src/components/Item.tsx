@@ -2,7 +2,6 @@ import { IonAlert, IonButton, IonIcon, IonItem, IonLabel } from "@ionic/react";
 import { FC } from "react";
 // import { sad, trash } from "ionicons/icons";
 import dontEat from '../dontEat.svg';
-import { set } from "../data/store";
 
 const Item: FC<{ name: string; category: string; setAlert: any }> = ({
   name,
