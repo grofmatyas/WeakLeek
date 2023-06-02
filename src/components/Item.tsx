@@ -1,6 +1,7 @@
 import { IonAlert, IonButton, IonIcon, IonItem, IonLabel } from "@ionic/react";
 import { FC } from "react";
-import { sad, trash } from "ionicons/icons";
+// import { sad, trash } from "ionicons/icons";
+import dontEat from '../dontEat.svg';
 import { set } from "../data/store";
 
 const Item: FC<{ name: string; category: string; setAlert: any }> = ({
@@ -12,7 +13,7 @@ const Item: FC<{ name: string; category: string; setAlert: any }> = ({
     <IonItem>
       <IonLabel>{name}</IonLabel>
       <IonButton slot="end" onClick={() => setAlert(true)}>
-        <IonIcon slot="icon-only" icon={sad} />
+        <IonIcon slot="icon-only" icon={dontEat} />
       </IonButton>
     </IonItem>
   );
