@@ -37,7 +37,7 @@ export const clear = async (): Promise<void> => {
   }
 };
 
-export const setObject = async (key: string, id: string, val: Record<string, any>): Promise<void> => {
+export const setObject = async <T extends Record<string, any> = Record<string, any>>(key: string, id: string, val: T): Promise<void> => {
   if (storage) {
     const all = await storage.get(key);
     const objIndex = all.findIndex((a: any) => parseInt(a.id) === parseInt(id));
@@ -57,7 +57,7 @@ export const removeObject = async (key: string, id: string): Promise<void> => {
   }
 };
 
-export const getObject = async (key: string, id: string): Promise<Record<string, any> | null> => {
+export const getObject = async <T extends Record<string, any> = Record<string, any>>(key: string, id: string): Promise<T | null> => {
   if (storage) {
     const all = await storage.get(key);
     const obj = all.filter((a: any) => parseInt(a.id) === parseInt(id))[0];
