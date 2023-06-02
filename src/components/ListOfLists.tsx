@@ -1,5 +1,5 @@
 import { FC, useRef, useState } from "react";
-import { BillHistory, Categories } from "../data/types";
+import { BillHistory, Categories, GarbageHistory } from "../data/types";
 import {
   IonAlert,
   IonButton,
@@ -22,6 +22,7 @@ import {
 } from "@ionic/react";
 import SingleList from "./SingleList";
 import { OverlayEventDetail } from "@ionic/react/dist/types/components/react-component-lib/interfaces";
+import { getObject, setObject } from "../data/store";
 
 const ModalGarbage: FC<{
   onDismiss: (data?: any, role?: string) => void;
@@ -118,6 +119,8 @@ const ModalGarbage: FC<{
   );
 };
 
+const onModalDismiss = () => {};
+
 const ListOfLists: FC<BillHistory> = ({ bills }) => {
   const [open, setOpen] = useState(false);
 
@@ -127,17 +130,47 @@ const ListOfLists: FC<BillHistory> = ({ bills }) => {
     category: "apples",
     date: new Date(),
   });
+
   const [message, setMessage] = useState(
     "This modal example uses the modalController to present and dismiss modals."
   );
 
   console.log(message);
 
-  const openModal = () => {
+  const openModal = async () => {
     present({
-      onWillDismiss: (ev: CustomEvent<OverlayEventDetail>) => {
+      onWillDismiss: async (ev: CustomEvent<OverlayEventDetail>) => {
         if (ev.detail.role === "confirm") {
           setMessage(`${ev.detail?.data?.value?.amount} hii`);
+
+          try {
+            let garbage = await getObject<GarbageHistory>("garbage");
+
+            console.log("garbage na zacatku", garbage);
+
+            const thisGarbage = garbage?.garbage?.find(
+              (item) =>
+                item.name === ev.detail?.data?.name &&
+                item.category === ev.detail?.data?.category
+            );
+
+            console.log("this garbage", thisGarbage);
+            if (thisGarbage) {
+              thisGarbage.values.push(ev.detail?.data?.value);
+            } else {
+              if (!garbage?.garbage) {
+                garbage = { garbage: [] };
+                console.log("garbage now set to empty array", garbage);
+              }
+
+              garbage?.garbage.push(ev.detail?.data);
+            }
+
+            console.log("tenhle garbage posilam", garbage);
+            await setObject("garbage", garbage!);
+          } catch (e) {
+            return null;
+          }
         }
       },
     });
