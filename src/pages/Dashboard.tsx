@@ -2,7 +2,7 @@ import { IonContent, IonHeader, IonLabel, IonPage, IonTabBar, IonButton, IonTitl
 import './Dashboard.css';
 import LineChart from '../components/LineChart';
 import PieChart from '../components/PieChart';
-import { getObject } from '../data/store';
+import { getObject, setObject } from '../data/store';
 import { GarbageHistory, TimeScale } from '../data/types';
 import { useState } from 'react';
 
