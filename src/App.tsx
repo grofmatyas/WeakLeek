@@ -15,6 +15,8 @@ import barChart from './bar-chart.svg';
 import Dashboard from './pages/Dashboard';
 import ItemList from './pages/ItemList';
 import ScanBill from './pages/ScanBill';
+import { createStore, get, set } from './data/store';
+import { useEffect } from 'react';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -37,7 +39,25 @@ import './theme/variables.css';
 
 setupIonicReact();
 
-const App: React.FC = () => (
+const App: React.FC = () => {
+  useEffect(() => {
+
+		const setupStore = async () => {
+
+			await createStore("default");
+			// const exists = await get("msgs");
+
+			// if (!exists) {
+				
+			// 	const msgs = getMessages();
+			// 	set("msgs", msgs);
+			// }
+		}
+
+		setupStore();
+	}, []);
+
+  return (
   <IonApp>
     <IonReactRouter>
       <IonTabs>
@@ -69,6 +89,6 @@ const App: React.FC = () => (
       </IonTabs>
     </IonReactRouter>
   </IonApp>
-);
+)};
 
 export default App;

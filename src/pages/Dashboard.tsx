@@ -1,22 +1,37 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonLabel, IonPage, IonTabBar, IonTabButton, IonTitle, IonToolbar } from '@ionic/react';
 import './Dashboard.css';
 import LineChart from '../components/LineChart';
 import PieChart from '../components/PieChart';
+import { getObject } from '../data/store';
+import { GarbageHistory } from '../data/types';
 
 const Tab1: React.FC = () => {
+  let scale = 'week';
+
+  // const data: GarbageHistory = await getObject<GarbageHistory>('garbage');
+
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Dashboard</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
+       <IonHeader>
           <IonToolbar>
-            <IonTitle style={{ textAlign: 'center' }} size="large">Dashboard</IonTitle>
+            <IonTitle style={{ textAlign: 'center', marginTop: '2px' }} size="large">Dashboard</IonTitle>
           </IonToolbar>
         </IonHeader>
+        <IonTabBar slot="bottom">
+          <IonTabButton onClick={() => { scale = 'day' }}>
+            <IonLabel>Day</IonLabel>
+          </IonTabButton>
+          <IonTabButton onClick={() => { scale = 'week' }}>
+            <IonLabel>Week</IonLabel>
+          </IonTabButton>
+          <IonTabButton onClick={() => { scale = 'month' }}>
+            <IonLabel>Month</IonLabel>
+          </IonTabButton>
+          <IonTabButton onClick={() => { scale = 'year' }}>
+            <IonLabel>Year</IonLabel>
+          </IonTabButton>
+        </IonTabBar>
+      <IonContent fullscreen>
         <div style={{ maxWidth: '100%', overflowX: 'auto' }}>
           <h3 style={{ textAlign: 'center' }}>Timelapse of thrown items</h3>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
