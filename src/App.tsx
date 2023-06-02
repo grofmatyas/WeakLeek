@@ -44,8 +44,8 @@ const App: React.FC = () => {
 
 		const setupStore = async () => {
 
-			await createStore("AlansDB");
-			const exists = await get("msgs");
+			await createStore("default");
+			// const exists = await get("msgs");
 
 			// if (!exists) {
 				

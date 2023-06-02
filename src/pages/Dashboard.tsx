@@ -1,10 +1,45 @@
-import { IonContent, IonHeader, IonLabel, IonPage, IonTabBar, IonTabButton, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonLabel, IonPage, IonTabBar, IonTabButton, IonTitle, IonToolbar, useIonViewWillEnter } from '@ionic/react';
 import './Dashboard.css';
 import LineChart from '../components/LineChart';
 import PieChart from '../components/PieChart';
+import { getObject } from '../data/store';
+import { GarbageHistory, TimeScale } from '../data/types';
+import { useState } from 'react';
 
 const Tab1: React.FC = () => {
-  let scale = 'week';
+
+  const [garbageHistory, setGarbageHistory] = useState<GarbageHistory>({ garbage: [] });
+  const [scale, setScale] = useState<TimeScale>('Week');
+
+	useIonViewWillEnter(async() => {
+		const exists = await getObject<GarbageHistory>('garbage');
+		if (exists) {
+			setGarbageHistory(exists);
+		} else {
+      setGarbageHistory({
+        garbage: [
+          {
+            name: 'Leek',
+            category: 'Vegetable',
+            values: [
+              {
+                date: new Date(),
+                amount: 4,
+              }
+            ],
+          },
+          {
+            name: 'Beef',
+            category: 'Meat',
+            values: [{
+              date: new Date(),
+              amount: 1,
+            }],
+          },
+        ],
+      })
+    }
+	});
 
   return (
     <IonPage>
@@ -14,16 +49,16 @@ const Tab1: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <IonTabBar slot="bottom">
-          <IonTabButton onClick={() => { scale = 'day' }}>
+          <IonTabButton onClick={() => setScale('Day')}>
             <IonLabel>Day</IonLabel>
           </IonTabButton>
-          <IonTabButton onClick={() => { scale = 'week' }}>
+          <IonTabButton onClick={() => setScale('Week')}>
             <IonLabel>Week</IonLabel>
           </IonTabButton>
-          <IonTabButton onClick={() => { scale = 'month' }}>
+          <IonTabButton onClick={() => setScale('Month')}>
             <IonLabel>Month</IonLabel>
           </IonTabButton>
-          <IonTabButton onClick={() => { scale = 'year' }}>
+          <IonTabButton onClick={() => setScale('Year') }>
             <IonLabel>Year</IonLabel>
           </IonTabButton>
         </IonTabBar>
@@ -50,8 +85,8 @@ const Tab1: React.FC = () => {
           <div style={{ display: 'flex', justifyContent: 'center' }}>
           <div style={{ width: '80%' }}>
             <PieChart data={{
-              labels: ['Vegetable', 'Meat'],
-              values: [14, 2],
+              data: garbageHistory,
+              scale,
             }} />
           </div>
         </div>

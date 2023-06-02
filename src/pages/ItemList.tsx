@@ -20,7 +20,7 @@ const ItemList: React.FC = () => {
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Tab 2</IonTitle>
+            <IonTitle size="large">Item List</IonTitle>
           </IonToolbar>
         </IonHeader>
         {/* <ExploreContainer name="Tab 2 page" /> */}
