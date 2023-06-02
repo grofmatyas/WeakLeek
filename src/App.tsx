@@ -15,8 +15,9 @@ import barChart from './bar-chart.svg';
 import Dashboard from './pages/Dashboard';
 import ItemList from './pages/ItemList';
 import ScanBill from './pages/ScanBill';
-import { createStore, get, set } from './data/store';
+import { createStore } from './data/store';
 import { useEffect } from 'react';
+import { LocalNotifications } from '@capacitor/local-notifications';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -48,6 +49,8 @@ const App: React.FC = () => {
 
 		setupStore();
 	}, []);
+
+  LocalNotifications.requestPermissions()
 
   return (
   <IonApp>

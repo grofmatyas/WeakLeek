@@ -2,31 +2,13 @@ import { IonContent, IonHeader, IonLabel, IonPage, IonTabBar, IonButton, IonTitl
 import './Dashboard.css';
 import LineChart from '../components/LineChart';
 import PieChart from '../components/PieChart';
-import { getObject } from '../data/store';
+import { getObject, setObject } from '../data/store';
 import { GarbageHistory, TimeScale } from '../data/types';
 import { useState } from 'react';
-// import { LocalNotifications } from '@capacitor/local-notifications';
 
 const Tab1: React.FC = () => {
   const [garbageHistory, setGarbageHistory] = useState<GarbageHistory>({ garbage: [] });
   const [scale, setScale] = useState<TimeScale>('Week');
-
-  // LocalNotifications.requestPermissions().then(() => {
-  //   LocalNotifications.schedule({
-  //     notifications: [
-  //       {
-  //         title: 'Porek',
-  //         body: `This app's design, a purpose clear,
-  //         To combat waste and hold it near.
-  //         Knowledge shared, tips abound,
-  //         In saving food, a solution found.
-  //         `,
-  //         id: 0,
-  //       }
-  //     ],
-  //   });
-  // });
-
 
 	useIonViewWillEnter(async() => {
 		const exists = await getObject<GarbageHistory>('garbage');
