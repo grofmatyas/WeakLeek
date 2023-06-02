@@ -2,6 +2,8 @@ import { Storage, Drivers } from "@ionic/storage";
 
 let storage: Storage | false = false;
 
+export type StoreKeys = 'garbage' | 'bills';
+
 export const createStore = async (name = "__mydb"): Promise<void> => {
   storage = new Storage({
     name,
@@ -11,13 +13,13 @@ export const createStore = async (name = "__mydb"): Promise<void> => {
   await storage.create();
 };
 
-export const set = (key: string, val: string): void => {
+export const set = (key: StoreKeys, val: string): void => {
   if (storage) {
     storage.set(key, val);
   }
 };
 
-export const get = async (key: string): Promise<string | null> => {
+export const get = async (key: StoreKeys): Promise<string | null> => {
   if (storage) {
     const val = await storage.get(key);
     return val;
@@ -25,7 +27,7 @@ export const get = async (key: string): Promise<string | null> => {
   return null;
 };
 
-export const remove = async (key: string): Promise<void> => {
+export const remove = async (key: StoreKeys): Promise<void> => {
   if (storage) {
     await storage.remove(key);
   }
@@ -37,31 +39,25 @@ export const clear = async (): Promise<void> => {
   }
 };
 
-export const setObject = async <T extends Record<string, any> = Record<string, any>>(key: string, id: string, val: T): Promise<void> => {
+export const setObject = async <T extends Record<string, any> = Record<string, any>>(key: StoreKeys, val: T): Promise<void> => {
   if (storage) {
     const all = await storage.get(key);
-    const objIndex = all.findIndex((a: any) => parseInt(a.id) === parseInt(id));
-
-    all[objIndex] = val;
     set(key, all);
   }
 };
 
-export const removeObject = async (key: string, id: string): Promise<void> => {
+export const removeObject = async (key: StoreKeys): Promise<void> => {
   if (storage) {
     const all = await storage.get(key);
-    const objIndex = all.findIndex((a: any) => parseInt(a.id) === parseInt(id));
-
-    all.splice(objIndex, 1);
     set(key, all);
   }
 };
 
-export const getObject = async <T extends Record<string, any> = Record<string, any>>(key: string, id: string): Promise<T | null> => {
+export const getObject = async <T extends Record<string, any> = Record<string, any>>(key: StoreKeys): Promise<T | null> => {
   if (storage) {
     const all = await storage.get(key);
-    const obj = all.filter((a: any) => parseInt(a.id) === parseInt(id))[0];
-    return obj;
+    return all;
   }
   return null;
 };
+

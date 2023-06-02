@@ -2,9 +2,13 @@ import { IonContent, IonHeader, IonLabel, IonPage, IonTabBar, IonTabButton, IonT
 import './Dashboard.css';
 import LineChart from '../components/LineChart';
 import PieChart from '../components/PieChart';
+import { getObject } from '../data/store';
+import { GarbageHistory } from '../data/types';
 
 const Tab1: React.FC = () => {
   let scale = 'week';
+
+  // const data: GarbageHistory = await getObject<GarbageHistory>('garbage');
 
   return (
     <IonPage>
