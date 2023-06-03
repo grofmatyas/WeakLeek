@@ -70,14 +70,16 @@ const App: React.FC = () => {
             </Route>
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
+            <IonTabButton tab="dashboard" href="/dashboard">
+              <IonIcon aria-hidden="true" icon={barChart} />
+            </IonTabButton>
+
             <IonTabButton tab="scanBill" href="/scanBill">
               <IonIcon aria-hidden="true" icon={camera} />
             </IonTabButton>
+
             <IonTabButton tab="itemList" href="/itemList">
               <IonIcon aria-hidden="true" icon={list} />
-            </IonTabButton>
-            <IonTabButton tab="dashboard" href="/dashboard">
-              <IonIcon aria-hidden="true" icon={barChart} />
             </IonTabButton>
           </IonTabBar>
         </IonTabs>
