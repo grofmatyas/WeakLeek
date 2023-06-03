@@ -1,25 +1,37 @@
-import { IonContent, IonHeader, IonLabel, IonPage, IonTabBar, IonButton, IonTitle, IonToolbar, useIonViewWillEnter } from '@ionic/react';
-import './Dashboard.css';
-import LineChart from '../components/LineChart';
-import PieChart from '../components/PieChart';
-import { getObject, setObject } from '../data/store';
-import { GarbageHistory, TimeScale } from '../data/types';
-import { useState } from 'react';
+import {
+  IonContent,
+  IonHeader,
+  IonLabel,
+  IonPage,
+  IonTabBar,
+  IonButton,
+  IonTitle,
+  IonToolbar,
+  useIonViewWillEnter,
+} from "@ionic/react";
+import "./Dashboard.css";
+import LineChart from "../components/LineChart";
+import PieChart from "../components/PieChart";
+import { getObject, setObject } from "../data/store";
+import { GarbageHistory, TimeScale } from "../data/types";
+import { useState } from "react";
 
 const Tab1: React.FC = () => {
-  const [garbageHistory, setGarbageHistory] = useState<GarbageHistory>({ garbage: [] });
-  const [scale, setScale] = useState<TimeScale>('Week');
+  const [garbageHistory, setGarbageHistory] = useState<GarbageHistory>({
+    garbage: [],
+  });
+  const [scale, setScale] = useState<TimeScale>("Week");
 
-	useIonViewWillEnter(async() => {
-		const exists = await getObject<GarbageHistory>('garbage');
-		if (exists) {
-			setGarbageHistory(exists);
-		} else {
+  useIonViewWillEnter(async () => {
+    const exists = await getObject<GarbageHistory>("garbage");
+    if (exists) {
+      setGarbageHistory(exists);
+    } else {
       setGarbageHistory({
         garbage: [
           {
-            name: 'Leek',
-            category: 'Vegetable',
+            name: "Leek",
+            category: "Vegetable",
             values: [
               {
                 date: new Date(2023, 4, 20),
@@ -52,12 +64,12 @@ const Tab1: React.FC = () => {
             ],
           },
           {
-            name: 'Beef',
-            category: 'Meat',
+            name: "Beef",
+            category: "Meat",
             values: [
               {
-              date: new Date(),
-              amount: 1,
+                date: new Date(),
+                amount: 1,
               },
               {
                 date: new Date(2022, 11, 25),
@@ -87,57 +99,73 @@ const Tab1: React.FC = () => {
                 date: new Date(2022, 10, 9),
                 amount: 2,
               },
-
-          ],
+            ],
           },
         ],
-      })
+      });
     }
-	});
+  });
 
   return (
     <IonPage>
-       <IonHeader>
-          <IonToolbar>
-            <IonTitle style={{ textAlign: 'center', marginTop: '2px' }} size="large">Dashboard</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle
+            style={{ textAlign: "center", marginTop: "2px" }}
+            size="large"
+          >
+            Dashboard
+          </IonTitle>
+        </IonToolbar>
+      </IonHeader>
       <IonContent fullscreen>
-      <div style={{ display: 'flex', justifyContent: 'center', width: '90%', margin: '0 auto', marginTop: '2px' }}>
-  <IonButton onClick={() => setScale('Day')} style={{ flex: 1 }}>
-    <IonLabel>Day</IonLabel>
-  </IonButton>
-  <IonButton onClick={() => setScale('Week')} style={{ flex: 1 }}>
-    <IonLabel>Week</IonLabel>
-  </IonButton>
-  <IonButton onClick={() => setScale('Month')} style={{ flex: 1 }}>
-    <IonLabel>Month</IonLabel>
-  </IonButton>
-  <IonButton onClick={() => setScale('Year')} style={{ flex: 1 }}>
-    <IonLabel>Year</IonLabel>
-  </IonButton>
-</div>
-        <div style={{ maxWidth: '100%', overflowX: 'auto' }}>
-          <h3 style={{ textAlign: 'center' }}>Timelapse of thrown items</h3>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <div style={{ width: '80%' }}>
-          <LineChart data={{
-              data: garbageHistory,
-              scale,
-            }} />
-          </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "90%",
+            margin: "0 auto",
+            marginTop: "2px",
+          }}
+        >
+          <IonButton onClick={() => setScale("Day")} style={{ flex: 1 }}>
+            <IonLabel>Day</IonLabel>
+          </IonButton>
+          <IonButton onClick={() => setScale("Week")} style={{ flex: 1 }}>
+            <IonLabel>Week</IonLabel>
+          </IonButton>
+          <IonButton onClick={() => setScale("Month")} style={{ flex: 1 }}>
+            <IonLabel>Month</IonLabel>
+          </IonButton>
+          <IonButton onClick={() => setScale("Year")} style={{ flex: 1 }}>
+            <IonLabel>Year</IonLabel>
+          </IonButton>
         </div>
+        <div style={{ maxWidth: "100%", overflowX: "auto" }}>
+          <h3 style={{ textAlign: "center" }}>Timelapse of thrown items</h3>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ width: "80%" }}>
+              <LineChart
+                data={{
+                  data: garbageHistory,
+                  scale,
+                }}
+              />
+            </div>
+          </div>
         </div>
         <div>
-          <h3 style={{ textAlign: 'center' }}>Ratio of thrown categories</h3>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <div style={{ width: '80%' }}>
-            <PieChart data={{
-              data: garbageHistory,
-              scale,
-            }} />
+          <h3 style={{ textAlign: "center" }}>Ratio of thrown categories</h3>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ width: "80%" }}>
+              <PieChart
+                data={{
+                  data: garbageHistory,
+                  scale,
+                }}
+              />
+            </div>
           </div>
-        </div>
         </div>
       </IonContent>
     </IonPage>

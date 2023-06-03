@@ -1,9 +1,28 @@
-import React, { useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, IonGrid, IonRow, IonCol, IonImg, IonActionSheet } from '@ionic/react';
-import { camera, trash, arrowForwardCircleOutline, close } from 'ionicons/icons';
-import { usePhotoGallery, UserPhoto } from '../hooks/usePhotoGallery'; 
-import './ScanBill.css';
-import { recognizePhoto } from '../hooks/recognizePhoto';
+import React, { useState } from "react";
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonFab,
+  IonFabButton,
+  IonIcon,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonImg,
+  IonActionSheet,
+} from "@ionic/react";
+import {
+  camera,
+  trash,
+  arrowForwardCircleOutline,
+  close,
+} from "ionicons/icons";
+import { usePhotoGallery, UserPhoto } from "../hooks/usePhotoGallery";
+import "./ScanBill.css";
+import { recognizePhoto } from "../hooks/recognizePhoto";
 
 const ScanBill: React.FC = () => {
   const { deletePhoto, photos, takePhoto } = usePhotoGallery();
@@ -26,7 +45,10 @@ const ScanBill: React.FC = () => {
           <IonRow>
             {photos.map((photo, index) => (
               <IonCol size="6" key={index}>
-                <IonImg onClick={() => setPhotoClicked(photo)} src={photo.webviewPath} />
+                <IonImg
+                  onClick={() => setPhotoClicked(photo)}
+                  src={photo.webviewPath}
+                />
               </IonCol>
             ))}
           </IonRow>
@@ -40,32 +62,35 @@ const ScanBill: React.FC = () => {
 
         <IonActionSheet
           isOpen={!!photoClicked}
-          buttons={[{
-            text: 'Recognize',
-            role: 'recognize',
-            icon: arrowForwardCircleOutline,
-            handler: () => {
-              if (photoClicked) {
-                recognizePhoto(photoClicked);
-                setPhotoClicked(undefined);
-              }
-            }
-          },
-          {
-            text: 'Delete',
-            role: 'destructive',
-            icon: trash,
-            handler: () => {
-              if (photoClicked) {
-                deletePhoto(photoClicked);
-                setPhotoClicked(undefined);
-              }
-            }
-          }, {
-            text: 'Cancel',
-            icon: close,
-            role: 'cancel'
-          }]}
+          buttons={[
+            {
+              text: "Recognize",
+              role: "recognize",
+              icon: arrowForwardCircleOutline,
+              handler: () => {
+                if (photoClicked) {
+                  recognizePhoto(photoClicked);
+                  setPhotoClicked(undefined);
+                }
+              },
+            },
+            {
+              text: "Delete",
+              role: "destructive",
+              icon: trash,
+              handler: () => {
+                if (photoClicked) {
+                  deletePhoto(photoClicked);
+                  setPhotoClicked(undefined);
+                }
+              },
+            },
+            {
+              text: "Cancel",
+              icon: close,
+              role: "cancel",
+            },
+          ]}
           onDidDismiss={() => setPhotoClicked(undefined)}
         />
       </IonContent>
