@@ -11,39 +11,8 @@ import { BillHistory } from "../data/types";
 import { getObject } from "../data/store";
 import { useState } from "react";
 
-const billHistoryMock: BillHistory = {
-  bills: [
-    {
-      date: new Date(2022, 4, 5),
-      values: [
-        {
-          name: "apple",
-          category: "Fruit",
-        },
-        {
-          name: "banana",
-          category: "Fruit",
-        },
-      ],
-    },
-    {
-      date: new Date(),
-      values: [
-        {
-          name: "apple2",
-          category: "Fruit",
-        },
-        {
-          name: "banana2",
-          category: "Fruit",
-        },
-      ],
-    },
-  ],
-};
-
 const ItemList: React.FC = () => {
-  const [billHistory, setBillHistory] = useState<BillHistory>(billHistoryMock);
+  const [billHistory, setBillHistory] = useState<BillHistory>({ bills: [] });
 
   useIonViewWillEnter(async () => {
     const billsObject = await getObject<BillHistory>("bills");
