@@ -49,10 +49,17 @@ export const ListOfLists: FC<BillHistory> = ({ bills }) => {
 
   return (
     <>
-      <IonButton onClick={() => openModal()}>
-        <IonIcon slot="icon-only" icon={addCircle}></IonIcon>
-        <IonIcon slot="icon-only" icon={dontEat}></IonIcon>
-      </IonButton>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <IonButton onClick={() => openModal()}>
+          <IonIcon slot="icon-only" icon={addCircle}></IonIcon>
+          <IonIcon slot="icon-only" icon={dontEat}></IonIcon>
+        </IonButton>
+      </div>
       <IonList>
         {bills.map((bill) => {
           return (

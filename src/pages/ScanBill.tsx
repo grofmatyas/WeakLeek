@@ -32,13 +32,13 @@ const ScanBill: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Photo Gallery</IonTitle>
+          <IonTitle>My Bills</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Photo Gallery</IonTitle>
+            <IonTitle size="large">My Bills</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonGrid>

@@ -10,7 +10,9 @@ const SingleList: FC<{
 }> = ({ bill, openModal, setCurrentGarbage }) => {
   return (
     <>
-      <h3>{new Date(bill.date).toLocaleDateString()}</h3>
+      <h3 style={{ maxWidth: "100%", overflowX: "auto", textAlign: "center" }}>
+        {new Date(bill.date).toLocaleDateString()}
+      </h3>
       <IonList inset={true}>
         {bill?.values?.map((item) => {
           return (
