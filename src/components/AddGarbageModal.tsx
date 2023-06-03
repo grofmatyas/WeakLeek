@@ -97,7 +97,7 @@ export const AddGarbageModal: FC<AddGarbageModalProps> = ({
                   values: [
                     {
                       date: dateRef.current?.value,
-                      amount: amountRef.current?.value,
+                      amount: Number(amountRef.current?.value),
                     },
                   ],
                 } as Garbage,
