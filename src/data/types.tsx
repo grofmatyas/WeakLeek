@@ -7,18 +7,19 @@ export interface GarbageHistory {
     name: string;
     category: Categories;
     values: {
-      date: Date;
+      date: Date | string;
       amount: number;
     }[];
   }[];
 }
 
+export type Garbage = GarbageHistory["garbage"][0];
 export interface BillHistory {
   bills: Bill[];
 }
 
 export interface Bill {
-  date: Date;
+  date: Date | string;
   values: {
     name: string;
     category: Categories;

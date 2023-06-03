@@ -5,11 +5,12 @@ import { Bill } from "../data/types";
 
 const SingleList: FC<{
   bill: Bill;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-}> = ({ bill, setOpen }) => {
+  openModal: () => void;
+  setCurrentGarbage: Dispatch<any>;
+}> = ({ bill, openModal, setCurrentGarbage }) => {
   return (
     <>
-      <h3>{bill.date.toLocaleDateString()}</h3>
+      <h3>{new Date(bill.date).toLocaleDateString()}</h3>
       <IonList inset={true}>
         {bill?.values?.map((item) => {
           return (
@@ -17,7 +18,8 @@ const SingleList: FC<{
               name={item.name}
               category={item.category}
               key={`${item.name}_${item.category}`}
-              setAlert={setOpen}
+              openModal={openModal}
+              setCurrentGarbage={setCurrentGarbage}
             />
           );
         })}
