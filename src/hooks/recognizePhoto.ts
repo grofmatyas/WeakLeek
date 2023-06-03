@@ -4,6 +4,7 @@ import * as fuzz from 'fuzzball';
 import foodCategories from '../data/foodCategories.json';
 import { Bill, BillHistory, Categories } from '../data/types';
 import { getObject, setObject } from '../data/store';
+import { scheduleNotifications } from './scheduleNotifications';
 
 export const recognizePhoto = async (photo: UserPhoto) => {
     const worker = await createWorker({
@@ -45,6 +46,7 @@ export const recognizePhoto = async (photo: UserPhoto) => {
           } catch (e) {
             return null;
           }
+        await scheduleNotifications(bill);
     })();
 
 }
