@@ -81,7 +81,7 @@ const Tab1: React.FC = () => {
           </IonButton>
         </div>
         <div style={{ maxWidth: "100%", overflowX: "auto" }}>
-          <h3 style={{ textAlign: "center" }}>Timelapse of thrown items</h3>
+          <h3 style={{ textAlign: "center" }}>Food wasted over time</h3>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <div style={{ width: "80%" }}>
               <LineChart
@@ -94,7 +94,7 @@ const Tab1: React.FC = () => {
           </div>
         </div>
         <div>
-          <h3 style={{ textAlign: "center" }}>Ratio of thrown categories</h3>
+          <h3 style={{ textAlign: "center" }}>Categories of wasted food</h3>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <div style={{ width: "80%" }}>
               <PieChart

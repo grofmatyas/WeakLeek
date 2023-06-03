@@ -17,7 +17,7 @@ export const recognizePhoto = async (photo: UserPhoto, setRecognized: any) => {
     const {
       data: { text },
     } = await worker.recognize(photo.webviewPath!);
-    console.log(text);
+
     await worker.terminate();
     const textar = text.split("\n");
     // create new empty bill
