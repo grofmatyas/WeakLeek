@@ -66,7 +66,7 @@ const App: React.FC = () => {
               <ScanBill />
             </Route>
             <Route exact path="/">
-              <Redirect to="/tab1" />
+              <Redirect to="/dashboard" />
             </Route>
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
