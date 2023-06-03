@@ -19,17 +19,19 @@ import { AddGarbageModal } from "./AddGarbageModal";
 import { addCircle } from "ionicons/icons";
 import dontEat from "../dontEat.svg";
 
+const defaultGarbage: Garbage = {
+  name: "",
+  category: "Vegetable",
+  values: [
+    {
+      date: new Date(),
+      amount: 1,
+    },
+  ],
+};
+
 export const ListOfLists: FC<BillHistory> = ({ bills }) => {
-  const [currentGarbage, setcurrentGarbage] = useState<Garbage>({
-    name: "",
-    category: "Vegetable",
-    values: [
-      {
-        date: new Date(),
-        amount: 1,
-      },
-    ],
-  } as Garbage);
+  const [currentGarbage, setcurrentGarbage] = useState<Garbage>(defaultGarbage);
 
   const [present, dismiss]: UseIonModalResult = useIonModal(AddGarbageModal, {
     onDismiss: (data: Garbage, role: string) => dismiss(data, role),
@@ -40,6 +42,7 @@ export const ListOfLists: FC<BillHistory> = ({ bills }) => {
     present({
       onWillDismiss: async (ev: CustomEvent<OverlayEventDetail>) => {
         onModalDismiss(ev.detail.role, ev.detail?.data);
+        setcurrentGarbage(defaultGarbage);
       },
     });
   };
