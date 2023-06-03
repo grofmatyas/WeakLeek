@@ -36,8 +36,8 @@ export const AddGarbageModal: FC<AddGarbageModalProps> = ({
           <IonInput
             ref={nameRef}
             labelPlacement="stacked"
-            label="Name"
-            placeholder="Your name"
+            label="What"
+            placeholder="leek"
             value={currentGarbage.name}
           />
         </IonItem>

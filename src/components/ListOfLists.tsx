@@ -7,6 +7,7 @@ import {
 } from "../data/types";
 import {
   IonButton,
+  IonIcon,
   IonList,
   UseIonModalResult,
   useIonModal,
@@ -15,6 +16,8 @@ import SingleList from "./SingleList";
 import { OverlayEventDetail } from "@ionic/react/dist/types/components/react-component-lib/interfaces";
 import { getObject, setObject } from "../data/store";
 import { AddGarbageModal } from "./AddGarbageModal";
+import { addCircle } from "ionicons/icons";
+import dontEat from "../dontEat.svg";
 
 export const ListOfLists: FC<BillHistory> = ({ bills }) => {
   const [currentGarbage, setcurrentGarbage] = useState<Garbage>({
@@ -43,7 +46,10 @@ export const ListOfLists: FC<BillHistory> = ({ bills }) => {
 
   return (
     <>
-      <IonButton onClick={() => openModal()}></IonButton>
+      <IonButton onClick={() => openModal()}>
+        <IonIcon slot="icon-only" icon={addCircle}></IonIcon>
+        <IonIcon slot="icon-only" icon={dontEat}></IonIcon>
+      </IonButton>
       <IonList>
         {bills.map((bill) => {
           return (
