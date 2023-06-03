@@ -32,15 +32,16 @@ const Tab1: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle
-            style={{ textAlign: "center", marginTop: "2px" }}
-            size="large"
-          >
-            Dashboard
-          </IonTitle>
+          <IonTitle>Dashboard</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
+        <IonHeader collapse="condense">
+          <IonToolbar>
+            <IonTitle size="large">Dashboard</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+
         <div
           style={{
             display: "flex",
@@ -50,16 +51,32 @@ const Tab1: React.FC = () => {
             marginTop: "2px",
           }}
         >
-          <IonButton onClick={() => setScale("Day")} style={{ flex: 1 }}>
+          <IonButton
+            onClick={() => setScale("Day")}
+            style={{ flex: 1 }}
+            fill="outline"
+          >
             <IonLabel>Day</IonLabel>
           </IonButton>
-          <IonButton onClick={() => setScale("Week")} style={{ flex: 1 }}>
+          <IonButton
+            onClick={() => setScale("Week")}
+            style={{ flex: 1 }}
+            fill="outline"
+          >
             <IonLabel>Week</IonLabel>
           </IonButton>
-          <IonButton onClick={() => setScale("Month")} style={{ flex: 1 }}>
+          <IonButton
+            onClick={() => setScale("Month")}
+            style={{ flex: 1 }}
+            fill="outline"
+          >
             <IonLabel>Month</IonLabel>
           </IonButton>
-          <IonButton onClick={() => setScale("Year")} style={{ flex: 1 }}>
+          <IonButton
+            onClick={() => setScale("Year")}
+            style={{ flex: 1 }}
+            fill="outline"
+          >
             <IonLabel>Year</IonLabel>
           </IonButton>
         </div>
