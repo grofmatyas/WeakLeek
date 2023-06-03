@@ -1,55 +1,61 @@
-import { createWorker } from 'tesseract.js';
-import { UserPhoto } from './usePhotoGallery';
-import * as fuzz from 'fuzzball';
-import foodCategories from '../data/foodCategories.json';
-import { Bill, BillHistory, Categories } from '../data/types';
-import { getObject, setObject } from '../data/store';
-import { scheduleNotifications } from './scheduleNotifications';
+import { createWorker } from "tesseract.js";
+import { UserPhoto } from "./usePhotoGallery";
+import * as fuzz from "fuzzball";
+import foodCategories from "../data/foodCategories.json";
+import { Bill, BillHistory, Categories } from "../data/types";
+import { getObject, setObject } from "../data/store";
+import { scheduleNotifications } from "./scheduleNotifications";
 
-export const recognizePhoto = async (photo: UserPhoto) => {
-    const worker = await createWorker({
-        logger: m => console.log(m)
-    });
+export const recognizePhoto = async (photo: UserPhoto, setRecognized: any) => {
+  const worker = await createWorker({
+    logger: (m) => console.log(m),
+  });
 
-    (async () => {
-        await worker.loadLanguage('ces');
-        await worker.initialize('ces');
-        const { data: { text } } = await worker.recognize(photo.webviewPath!);
-        console.log(text);
-        await worker.terminate();
-        const textar = text.split('\n');
-        // create new empty bill
-        const bill: Bill = {date: new Date(), values: []};
-        // for each thing in food, find the best matching line on the bill
-        for (let food in foodCategories) {
-            const res = fuzz.extract(food, textar, { scorer: fuzz.partial_ratio, limit: 1, returnObjects: true })[0];
-            console.log(res, food);
-            if (res.score > 80) {
-                console.log("Found", food);
-                // @ts-ignore lol
-                bill.values.push({name: food, category: foodCategories[food]});
-            }
-        }
+  (async () => {
+    await worker.loadLanguage("ces");
+    await worker.initialize("ces");
+    const {
+      data: { text },
+    } = await worker.recognize(photo.webviewPath!);
+    console.log(text);
+    await worker.terminate();
+    const textar = text.split("\n");
+    // create new empty bill
+    const bill: Bill = { date: new Date(), values: [] };
+    // for each thing in food, find the best matching line on the bill
+    for (let food in foodCategories) {
+      const res = fuzz.extract(food, textar, {
+        scorer: fuzz.partial_ratio,
+        limit: 1,
+        returnObjects: true,
+      })[0];
+      console.log(res, food);
+      if (res.score > 80) {
+        console.log("Found", food);
+        // @ts-ignore lol
+        bill.values.push({ name: food, category: foodCategories[food] });
+      }
+    }
 
-        try {
-            let billHistory = await getObject<BillHistory>('bills');
-            
-            if (billHistory) {
-                billHistory.bills.push(bill);
-            } else {
-                billHistory = {
-                    bills: [bill],
-                };
-            }
-      
-            await setObject<BillHistory>("bills", billHistory!);
-          } catch (e) {
-            return null;
-          }
-        await scheduleNotifications(bill);
-    })();
+    try {
+      let billHistory = await getObject<BillHistory>("bills");
 
-}
+      if (billHistory) {
+        billHistory.bills.push(bill);
+      } else {
+        billHistory = {
+          bills: [bill],
+        };
+      }
+
+      await setObject<BillHistory>("bills", billHistory!);
+      setRecognized(true);
+    } catch (e) {
+      return null;
+    }
+    await scheduleNotifications(bill);
+  })();
+};
 
 // Test text:
 // l :É

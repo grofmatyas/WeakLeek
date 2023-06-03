@@ -13,6 +13,7 @@ import {
   IonCol,
   IonImg,
   IonActionSheet,
+  IonToast,
 } from "@ionic/react";
 import {
   camera,
@@ -27,7 +28,9 @@ import { recognizePhoto } from "../hooks/recognizePhoto";
 const ScanBill: React.FC = () => {
   const { deletePhoto, photos, takePhoto } = usePhotoGallery();
   const [photoClicked, setPhotoClicked] = useState<UserPhoto>();
+  const [recognized, setRecognized] = useState<boolean>(false);
 
+  console.log("recognized", recognized);
   return (
     <IonPage>
       <IonHeader>
@@ -69,7 +72,7 @@ const ScanBill: React.FC = () => {
               icon: arrowForwardCircleOutline,
               handler: () => {
                 if (photoClicked) {
-                  recognizePhoto(photoClicked);
+                  recognizePhoto(photoClicked, setRecognized);
                   setPhotoClicked(undefined);
                 }
               },
@@ -93,6 +96,15 @@ const ScanBill: React.FC = () => {
           ]}
           onDidDismiss={() => setPhotoClicked(undefined)}
         />
+
+        <IonToast
+          isOpen={recognized}
+          message="Your bill was added to your inventory!"
+          onDidDismiss={() => setRecognized(false)}
+          duration={5000}
+          position="middle"
+          color={"success"}
+        ></IonToast>
       </IonContent>
     </IonPage>
   );

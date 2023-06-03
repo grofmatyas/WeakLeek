@@ -55,7 +55,6 @@ const Tab1: React.FC = () => {
             onClick={() => setScale("Day")}
             style={{ flex: 1 }}
             fill="outline"
-            color="secondary"
           >
             <IonLabel>Day</IonLabel>
           </IonButton>
@@ -63,7 +62,6 @@ const Tab1: React.FC = () => {
             onClick={() => setScale("Week")}
             style={{ flex: 1 }}
             fill="outline"
-            color="secondary"
           >
             <IonLabel>Week</IonLabel>
           </IonButton>
@@ -71,7 +69,6 @@ const Tab1: React.FC = () => {
             onClick={() => setScale("Month")}
             style={{ flex: 1 }}
             fill="outline"
-            color="secondary"
           >
             <IonLabel>Month</IonLabel>
           </IonButton>
@@ -79,7 +76,6 @@ const Tab1: React.FC = () => {
             onClick={() => setScale("Year")}
             style={{ flex: 1 }}
             fill="outline"
-            color="secondary"
           >
             <IonLabel>Year</IonLabel>
           </IonButton>
