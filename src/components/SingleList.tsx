@@ -6,7 +6,8 @@ import { Bill } from "../data/types";
 const SingleList: FC<{
   bill: Bill;
   openModal: () => void;
-}> = ({ bill, openModal }) => {
+  setCurrentGarbage: Dispatch<any>;
+}> = ({ bill, openModal, setCurrentGarbage }) => {
   return (
     <>
       <h3>{new Date(bill.date).toLocaleDateString()}</h3>
@@ -18,6 +19,7 @@ const SingleList: FC<{
               category={item.category}
               key={`${item.name}_${item.category}`}
               openModal={openModal}
+              setCurrentGarbage={setCurrentGarbage}
             />
           );
         })}

@@ -1,5 +1,10 @@
 import { FC, useState } from "react";
-import { BillHistory, Garbage, GarbageHistory } from "../data/types";
+import {
+  BillHistory,
+  Categories,
+  Garbage,
+  GarbageHistory,
+} from "../data/types";
 import {
   IonButton,
   IonList,
@@ -12,13 +17,20 @@ import { getObject, setObject } from "../data/store";
 import { AddGarbageModal } from "./AddGarbageModal";
 
 export const ListOfLists: FC<BillHistory> = ({ bills }) => {
-  //   const [open, setOpen] = useState(false);
+  const [currentGarbage, setcurrentGarbage] = useState<Garbage>({
+    name: "",
+    category: "Vegetable",
+    values: [
+      {
+        date: new Date(),
+        amount: 1,
+      },
+    ],
+  } as Garbage);
 
   const [present, dismiss]: UseIonModalResult = useIonModal(AddGarbageModal, {
     onDismiss: (data: Garbage, role: string) => dismiss(data, role),
-    nameItem: "itemName",
-    category: "apples",
-    date: new Date(),
+    currentGarbage,
   });
 
   const openModal = async () => {
@@ -38,6 +50,7 @@ export const ListOfLists: FC<BillHistory> = ({ bills }) => {
             <SingleList
               bill={bill}
               openModal={openModal}
+              setCurrentGarbage={setcurrentGarbage}
               key={`${bill.date}`}
             />
           );

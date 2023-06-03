@@ -12,21 +12,17 @@ import {
   IonSelectOption,
   IonToolbar,
 } from "@ionic/react";
-import { Categories, Garbage } from "../data/types";
+import { Garbage } from "../data/types";
 import { FC, useRef } from "react";
 
 interface AddGarbageModalProps {
   onDismiss: (data?: any, role?: string) => void;
-  nameItem?: string;
-  category?: Categories;
-  date?: Date;
+  currentGarbage: Garbage;
 }
 
 export const AddGarbageModal: FC<AddGarbageModalProps> = ({
   onDismiss,
-  nameItem,
-  category,
-  date,
+  currentGarbage,
 }) => {
   const nameRef = useRef<HTMLIonInputElement>(null);
   const categoryRef = useRef<HTMLIonInputElement>(null);
@@ -42,7 +38,7 @@ export const AddGarbageModal: FC<AddGarbageModalProps> = ({
             labelPlacement="stacked"
             label="Name"
             placeholder="Your name"
-            value={nameItem}
+            value={currentGarbage.name}
           />
         </IonItem>
 
@@ -51,7 +47,7 @@ export const AddGarbageModal: FC<AddGarbageModalProps> = ({
             aria-label="select-category"
             interface="popover"
             placeholder="Select category"
-            value={category}
+            value={currentGarbage.category}
             ref={categoryRef}
           >
             <IonSelectOption value="Vegetable"> Vegetable</IonSelectOption>
@@ -67,7 +63,7 @@ export const AddGarbageModal: FC<AddGarbageModalProps> = ({
             labelPlacement="stacked"
             label="Amount"
             placeholder="1"
-            value={1}
+            value={currentGarbage.values[0]?.amount}
             type="number"
           />
         </IonItem>
@@ -77,7 +73,7 @@ export const AddGarbageModal: FC<AddGarbageModalProps> = ({
           <IonModal keepContentsMounted={true}>
             <IonDatetime
               id="date"
-              value={date?.toISOString()}
+              value={currentGarbage.values[0]?.date?.toISOString()}
               presentation="date"
               ref={dateRef}
             ></IonDatetime>
