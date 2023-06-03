@@ -1,7 +1,6 @@
 {
   "banány": "Fruit",
   "pór": "Vegetable",
-  "pórek": "Vegetable",
   "meloun": "Vegetable",
   "kuře": "Meat",
   "hovězí": "Meat",
@@ -46,5 +45,6 @@
   "víno": "Alcohol",
   "pivo": "Alcohol",
   "whiskey": "Alcohol",
-  "vodka": "Alcohol"
+  "vodka": "Alcohol",
+  "pórek": "Vegetable"
 }

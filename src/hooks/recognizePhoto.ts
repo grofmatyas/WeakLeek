@@ -19,7 +19,7 @@ export const recognizePhoto = async (photo: UserPhoto, setRecognized: any) => {
     } = await worker.recognize(photo.webviewPath!);
 
     await worker.terminate();
-    const textar = text.split("\n");
+    const textar = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split("\n");
     // create new empty bill
     const bill: Bill = { date: new Date(), values: [] };
     // for each thing in food, find the best matching line on the bill
@@ -30,7 +30,7 @@ export const recognizePhoto = async (photo: UserPhoto, setRecognized: any) => {
         returnObjects: true,
       })[0];
       console.log(res, food);
-      if (res.score > 80) {
+      if (res.score >= 75) {
         console.log("Found", food);
         // @ts-ignore lol
         bill.values.push({ name: food, category: foodCategories[food] });
