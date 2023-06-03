@@ -2,7 +2,8 @@ import { createWorker } from 'tesseract.js';
 import { UserPhoto } from './usePhotoGallery';
 import * as fuzz from 'fuzzball';
 import foodCategories from '../data/foodCategories.json';
-import { Bill, Categories } from '../data/types';
+import { Bill, BillHistory, Categories } from '../data/types';
+import { getObject, setObject } from '../data/store';
 
 export const recognizePhoto = async (photo: UserPhoto) => {
     const worker = await createWorker({
@@ -28,6 +29,22 @@ export const recognizePhoto = async (photo: UserPhoto) => {
                 bill.values.push({name: food, category: foodCategories[food]});
             }
         }
+
+        try {
+            let billHistory = await getObject<BillHistory>('bills');
+            
+            if (billHistory) {
+                billHistory.bills.push(bill);
+            } else {
+                billHistory = {
+                    bills: [bill],
+                };
+            }
+      
+            await setObject<BillHistory>("bills", billHistory!);
+          } catch (e) {
+            return null;
+          }
     })();
 
 }

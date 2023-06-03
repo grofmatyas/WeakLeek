@@ -75,27 +75,20 @@ const onModalDismiss = async (role?: string, inputData?: Garbage) => {
 
     try {
       let garbage = await getObject<GarbageHistory>("garbage");
-
-      console.log("garbage na zacatku", garbage);
-
       const thisGarbage = garbage?.garbage?.find(
         (item) =>
           item.name === inputData?.name && item.category === inputData?.category
       );
 
-      console.log("this garbage", thisGarbage);
       if (thisGarbage) {
         thisGarbage.values.push(inputData.values[0]);
       } else {
         if (!garbage?.garbage) {
           garbage = { garbage: [] };
-          console.log("garbage now set to empty array", garbage);
         }
-
         garbage?.garbage.push(inputData);
       }
 
-      console.log("tenhle garbage posilam", garbage);
       await setObject("garbage", garbage!);
     } catch (e) {
       return null;
