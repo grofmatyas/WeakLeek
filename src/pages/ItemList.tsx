@@ -4,14 +4,14 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  useIonViewWillEnter,
 } from "@ionic/react";
-import ExploreContainer from "../components/ExploreContainer";
-import "./ItemList.css";
-import SingleList from "../components/SingleList";
 import { ListOfLists } from "../components/ListOfLists";
 import { BillHistory } from "../data/types";
+import { getObject } from "../data/store";
+import { useState } from "react";
 
-const billHistory: BillHistory = {
+const billHistoryMock: BillHistory = {
   bills: [
     {
       date: new Date(2022, 4, 5),
@@ -43,6 +43,15 @@ const billHistory: BillHistory = {
 };
 
 const ItemList: React.FC = () => {
+  const [billHistory, setBillHistory] = useState<BillHistory>(billHistoryMock);
+
+  useIonViewWillEnter(async () => {
+    const billsObject = await getObject<BillHistory>("bills");
+    if (billsObject) {
+      setBillHistory(billsObject);
+    }
+  });
+
   return (
     <IonPage>
       <IonHeader>
