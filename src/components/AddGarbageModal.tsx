@@ -48,6 +48,7 @@ export const AddGarbageModal: FC<AddGarbageModalProps> = ({
             interface="popover"
             placeholder="Select category"
             value={currentGarbage.category}
+            // @ts-ignore
             ref={categoryRef}
           >
             <IonSelectOption value="Vegetable"> Vegetable</IonSelectOption>
@@ -73,8 +74,10 @@ export const AddGarbageModal: FC<AddGarbageModalProps> = ({
           <IonModal keepContentsMounted={true}>
             <IonDatetime
               id="date"
+              // @ts-ignore
               value={currentGarbage.values[0]?.date?.toISOString()}
               presentation="date"
+              // @ts-expect-error
               ref={dateRef}
             ></IonDatetime>
           </IonModal>
