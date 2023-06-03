@@ -1,6 +1,8 @@
 import { createWorker } from 'tesseract.js';
 import { UserPhoto } from './usePhotoGallery';
 import * as fuzz from 'fuzzball';
+import foodCategories from '../data/foodCategories.json';
+import { Bill, Categories } from '../data/types';
 
 export const recognizePhoto = async (photo: UserPhoto) => {
     const worker = await createWorker({
@@ -13,12 +15,18 @@ export const recognizePhoto = async (photo: UserPhoto) => {
         const { data: { text } } = await worker.recognize(photo.webviewPath!);
         console.log(text);
         await worker.terminate();
-        const food = ["meloun", "pivo", "citrony", "syr", "cokolada"]
         const textar = text.split('\n');
+        // create new empty bill
+        const bill: Bill = {date: new Date(), values: []};
         // for each thing in food, find the best matching line on the bill
-        for (let i = 0; i < food.length; i++) {
-            const res = fuzz.extract(food[i], textar, { scorer: fuzz.partial_ratio, limit: 1 });
-            console.log(res, food[i]);
+        for (let food in foodCategories) {
+            const res = fuzz.extract(food, textar, { scorer: fuzz.partial_ratio, limit: 1, returnObjects: true })[0];
+            console.log(res, food);
+            if (res.score > 80) {
+                console.log("Found", food);
+                // @ts-ignore lol
+                bill.values.push({name: food, category: foodCategories[food]});
+            }
         }
     })();
 
