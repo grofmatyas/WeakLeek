@@ -3,7 +3,6 @@ import {
   IonHeader,
   IonLabel,
   IonPage,
-  IonTabBar,
   IonButton,
   IonTitle,
   IonToolbar,
@@ -12,7 +11,7 @@ import {
 import "./Dashboard.css";
 import LineChart from "../components/LineChart";
 import PieChart from "../components/PieChart";
-import { getObject, setObject } from "../data/store";
+import { getObject } from "../data/store";
 import { GarbageHistory, TimeScale } from "../data/types";
 import { useState } from "react";
 
@@ -26,83 +25,6 @@ const Tab1: React.FC = () => {
     const exists = await getObject<GarbageHistory>("garbage");
     if (exists) {
       setGarbageHistory(exists);
-    } else {
-      setGarbageHistory({
-        garbage: [
-          {
-            name: "Leek",
-            category: "Vegetable",
-            values: [
-              {
-                date: new Date(2023, 4, 20),
-                amount: 2,
-              },
-              {
-                date: new Date(2022, 9, 18),
-                amount: 1,
-              },
-              {
-                date: new Date(2023, 4, 25),
-                amount: 4,
-              },
-              {
-                date: new Date(2023, 5, 1),
-                amount: 3,
-              },
-              {
-                date: new Date(2023, 5, 2),
-                amount: 7,
-              },
-              {
-                date: new Date(2023, 1, 22),
-                amount: 3,
-              },
-              {
-                date: new Date(2023, 4, 22),
-                amount: 2,
-              },
-            ],
-          },
-          {
-            name: "Beef",
-            category: "Meat",
-            values: [
-              {
-                date: new Date(),
-                amount: 1,
-              },
-              {
-                date: new Date(2022, 11, 25),
-                amount: 2,
-              },
-              {
-                date: new Date(2023, 4, 18),
-                amount: 5,
-              },
-              {
-                date: new Date(2023, 3, 28),
-                amount: 3,
-              },
-              {
-                date: new Date(2023, 1, 2),
-                amount: 6,
-              },
-              {
-                date: new Date(2022, 8, 11),
-                amount: 1,
-              },
-              {
-                date: new Date(2023, 2, 2),
-                amount: 1,
-              },
-              {
-                date: new Date(2022, 10, 9),
-                amount: 2,
-              },
-            ],
-          },
-        ],
-      });
     }
   });
 
